@@ -1,0 +1,25 @@
+{
+  "name": "project1",
+  "version": "1.0.0",
+  "description": "Udacity project 1",
+  "main": "index.html",
+  "dependencies": {
+    "grunt": "^1.0.1",
+    "grunt-contrib-copy": "^1.0.0",
+    "grunt-replace": "^1.0.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kapekost/mws-restaurant-stage-1.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kapekost/mws-restaurant-stage-1/issues"
+  },
+  "homepage": "https://github.com/kapekost/mws-restaurant-stage-1#readme"
+}
