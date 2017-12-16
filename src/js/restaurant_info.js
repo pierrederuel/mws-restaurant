@@ -61,7 +61,7 @@ fillRestaurantHTML = (restaurant = self.restaurant) => {
   const imageRepresentations = DBHelper.imageUrlForRestaurant(restaurant);
 
   const sourceSmall = document.createElement('source');
-  sourceSmall.setAttribute('media', '(min-width:700px')
+  sourceSmall.setAttribute('media', '(min-width:700px)')
   sourceSmall.setAttribute('srcset',
     imageRepresentations.small_1x
     .concat(' 1x,')
@@ -71,7 +71,7 @@ fillRestaurantHTML = (restaurant = self.restaurant) => {
   picture.append(sourceSmall);
 
   const sourceLarge = document.createElement('source');
-  sourceLarge.setAttribute('media', '(min-width:1140px')
+  sourceLarge.setAttribute('media', '(min-width:1140px)')
   sourceLarge.setAttribute('srcset',
     imageRepresentations.large_1x
     .concat(' 1x,')
