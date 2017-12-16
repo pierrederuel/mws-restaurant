@@ -4,6 +4,7 @@
     "name": "Mission Chinese Food",
     "neighborhood": "Manhattan",
     "photograph": "1.jpg",
+    "alt": "the main restaurant area",
     "caption": "Large space with nice decoration",
     "address": "171 E Broadway, New York, NY 10002",
     "latlng": {
@@ -44,6 +45,7 @@
     "name": "Emily",
     "neighborhood": "Brooklyn",
     "photograph": "2.jpg",
+    "alt": "pizza on a plate",
     "caption": "Tasty pizzas made every day",
     "address": "919 Fulton St, Brooklyn, NY 11238",
     "latlng": {
@@ -84,6 +86,7 @@
     "name": "Kang Ho Dong Baekjeong",
     "neighborhood": "Manhattan",
     "photograph": "3.jpg",
+    "alt": "the main restaurant area empty",
     "caption": "Modern design to enjoy your meals",
     "address": "1 E 32nd St, New York, NY 10016",
     "latlng": {
@@ -124,6 +127,7 @@
     "name": "Katz's Delicatessen",
     "neighborhood": "Manhattan",
     "photograph": "4.jpg",
+    "alt": "the entrance of the shop",
     "caption": "The corner shop, easy to spot",
     "address": "205 E Houston St, New York, NY 10002",
     "latlng": {
@@ -164,6 +168,7 @@
     "name": "Roberta's Pizza",
     "neighborhood": "Brooklyn",
     "photograph": "5.jpg",
+    "alt": "inside the shop, customers and staff",
     "caption": "Meet our friendly staff",
     "address": "261 Moore St, Brooklyn, NY 11206",
     "latlng": {
@@ -204,6 +209,7 @@
     "name": "Hometown BBQ",
     "neighborhood": "Brooklyn",
     "photograph": "6.jpg",
+    "alt": "the area inside with some people queueing and other eating",
     "caption": "Large space for big groups",
     "address": "454 Van Brunt St, Brooklyn, NY 11231",
     "latlng": {
@@ -244,6 +250,7 @@
     "name": "Superiority Burger",
     "neighborhood": "Manhattan",
     "photograph": "7.jpg",
+    "alt": "black and white, the display of the shop with 2 people passing by",
     "caption": "Our classic shop, still keeping our values",
     "address": "430 E 9th St, New York, NY 10009",
     "latlng": {
@@ -284,6 +291,7 @@
     "name": "The Dutch",
     "neighborhood": "Manhattan",
     "photograph": "8.jpg",
+    "alt": "the top front side of the shop",
     "caption": "The Dutch logo, easy to spot",
     "address": "131 Sullivan St, New York, NY 10012",
     "latlng": {
@@ -325,6 +333,7 @@
     "neighborhood": "Queens",
     "photograph": "9.jpg",
     "caption": "Enjoying our home made meals",
+    "alt": "black and white, people eating in the restaurant",
     "address": "1209 Jackson Ave, Queens, NY 11101",
     "latlng": {
       "lat": 40.743797,
@@ -364,6 +373,7 @@
     "name": "Casa Enrique",
     "neighborhood": "Queens",
     "photograph": "10.jpg",
+    "alt": "the area inside the shop, the furniture and bar, without people",
     "caption": "Modern space, ready to serve your appetite",
     "address": "5-48 49th Ave, Queens, NY 11101",
     "latlng": {

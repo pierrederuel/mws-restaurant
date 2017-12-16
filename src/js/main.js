@@ -163,7 +163,7 @@ createRestaurantHTML = (restaurant) => {
   const image = document.createElement('img');
   image.className = 'restaurant-img';
   image.src = imageRepresentations.small_2x;
-  image.setAttribute('alt', 'picture from the restaurant');
+  image.setAttribute('alt', restaurant.alt);
   picture.append(image);
 
   const figcaption = document.createElement('figcaption');
