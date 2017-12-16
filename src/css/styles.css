@@ -70,9 +70,9 @@ a:hover,
 a:focus,
 select:hover,
 select:focus {
-	color: #3397db;
+	color: #d18860;
 	text-decoration: underline;
-	box-shadow: 0 2px 2px 0 rgba(0, 0, 0, .14), 0 3px 1px -2px rgba(0, 0, 0, .2), 0 1px 5px 0 rgba(0, 0, 0, .12);
+	box-shadow: 1px 3px 2px 0 rgba(0, 0, 0, .14), -2px -3px 1px -2px rgba(0, 0, 0, .2), 1px 7px 5px 0 rgba(0, 0, 0, .12)
 }
 
 a img {
