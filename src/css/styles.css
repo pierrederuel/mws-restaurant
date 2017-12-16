@@ -207,7 +207,7 @@ nav h1 a {
 	text-align: left;
 }
 
-#restaurants-list .restaurant-img {
+.restaurant-img {
 	background-color: #ccc;
 	display: block;
 	margin: 0;
