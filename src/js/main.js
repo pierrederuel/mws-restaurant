@@ -138,16 +138,6 @@ fillRestaurantsHTML = (restaurants = self.restaurants) => {
 createRestaurantHTML = (restaurant) => {
   const li = document.createElement('li');
 
-  //<img  src="images/great_pic_800.jpg"
-  // sizes="(max-width: 400px) 100vw, (min-width: 401px) 50vw"
-  // srcset="images/great_pic_400.jpg x1, images/great_pic_800.jpg x2"
-  // alt="great picture">
-  //{
-  //   large_x1: large_x1,
-  //   large_x2: large_x2,
-  //   small_x1: small_x1,
-  //   small_x2: small_x2
-  // };
   const imageRepresentations = DBHelper.imageUrlForRestaurant(restaurant);
   const picture = document.createElement('picture');
 
