@@ -4,11 +4,7 @@ module.exports = function (grunt) {
     // Project configuration.
     grunt.initConfig({
         // Prepare dist folder
-        clean: {
-            dist: {
-                folder: ['dist/'],
-            }
-        },
+        clean: ['dist'],
         connect: {
             server: {
                 options: {
@@ -155,6 +151,6 @@ module.exports = function (grunt) {
         'responsive_images:small_low'
     ]);
     grunt.registerTask('serve', ['build', 'connect', 'watch']);
-    grunt.registerTask('build', ['clean:dist', 'copy:static', 'replace', 'optimize_images']);
-
+    grunt.registerTask('build', ['clean', 'copy:static', 'replace', 'optimize_images']);
+    grunt.registerTask('cleans', ['clean'])
 };
