@@ -4,7 +4,12 @@ module.exports = function (grunt) {
     // Project configuration.
     grunt.initConfig({
         clean: {
-            folder: ['dist/'],
+            dist: {
+                folder: ['dist/'],
+            },
+            images: {
+                src: ['images'],
+            }
         },
         connect: {
             server: {
@@ -48,12 +53,89 @@ module.exports = function (grunt) {
                 files: [{
                     expand: true,
                     cwd: 'src',
-                    src: '**/**',
+                    src: ['**/**', '!**/img/**'],
                     dest: 'dist/'
                 }]
 
             }
-        }
+        },
+
+        responsive_images: {
+            large_high: {
+                options: {
+                    engine: 'im',
+                    sizes: [{
+                        width: 1024,
+                        suffix: 'x2',
+                        quality: 80
+                    }]
+                },
+                files: [{
+                    expand: true,
+                    src: ['img/*.{gif,jpg,png}'],
+                    cwd: 'src/',
+                    dest: 'dist/'
+                }]
+            },
+            large_low: {
+                options: {
+                    engine: 'im',
+                    sizes: [{
+                        width: 1024,
+                        suffix: 'x1',
+                        quality: 40
+                    }]
+                },
+                files: [{
+                    expand: true,
+                    src: ['img/*.{gif,jpg,png}'],
+                    cwd: 'src/',
+                    dest: 'dist/'
+                }]
+            },
+            small_high: {
+                options: {
+                    engine: 'im',
+                    sizes: [{
+                        width: 560,
+                        suffix: 'x2',
+                        quality: 80
+                    }]
+                },
+                files: [{
+                    expand: true,
+                    src: ['img/*.{gif,jpg,png}'],
+                    cwd: 'src/',
+                    dest: 'dist/'
+                }]
+            },
+            small_low: {
+                options: {
+                    engine: 'im',
+                    sizes: [{
+                        width: 560,
+                        suffix: 'x1',
+                        quality: 40
+                    }]
+                },
+                files: [{
+                    expand: true,
+                    src: ['img/*.{gif,jpg,png}'],
+                    cwd: 'src/',
+                    dest: 'dist/'
+                }]
+            }
+        },
+
+        /* Generate the images directory if it is missing */
+        mkdir: {
+            images: {
+                options: {
+                    cwd: 'dist/',
+                    create: ['img']
+                },
+            },
+        },
     });
 
     grunt.loadNpmTasks('grunt-replace');
@@ -61,14 +143,19 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-connect');
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-contrib-clean');
+    grunt.loadNpmTasks('grunt-mkdir');
+    grunt.loadNpmTasks('grunt-responsive-images');
 
     // Start web server
-    grunt.registerTask('serve', [
-        'build',
-        'connect',
-        'watch'
-    ]);
-    // Default task(s).
-    grunt.registerTask('build', ['clean', 'copy:static', 'replace']);
+    grunt.registerTask('serve', ['build', 'connect', 'watch']);
+    grunt.registerTask('build', ['clean:dist', 'copy:static', 'replace']);
+    grunt.registerTask('optimize_images', [
+        'clean:images',
+        'mkdir:images',
+        'responsive_images:large_high',
+        'responsive_images:large_low',
+        'responsive_images:small_high',
+        'responsive_images:small_low'
+    ])
 
 };
