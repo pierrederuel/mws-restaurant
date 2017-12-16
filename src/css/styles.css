@@ -16,6 +16,8 @@ body {
 	background-color: #fdfdfd;
 	margin: 0;
 	position: relative;
+	display: flex;
+	flex-wrap: wrap;
 }
 
 ul,
@@ -63,11 +65,13 @@ menu,
 nav,
 section {
 	display: block;
+	width: 100%;
 }
 
 #maincontent {
 	background-color: #f3f3f3;
 	min-height: 100%;
+	width: 100%
 }
 
 #footer {
@@ -302,7 +306,7 @@ nav h1 a {
 	padding: 2px 0;
 	text-align: center;
 	text-transform: uppercase;
-	width: 90%;
+	width: 100%;
 }
 
 #restaurant-container,
@@ -367,5 +371,56 @@ nav h1 a {
 @media screen and (min-width:1167px) {
 	#restaurants-list li {
 		max-width: 28%;
+	}
+}
+
+@media screen and (max-width:700px) {
+	.inside #map-container {
+		width: 100vw;
+		height: 50vw;
+		position: relative;
+		top: 6.4em;
+	}
+	.inside #footer {
+		width: 100vw;
+	}
+	#footer {
+		font-size: 11pt;
+	}
+	#breadcrumb {
+		width: 100%;
+	}
+	#breadcrumb li {
+		font-size: 15pt;
+	}
+	#restaurant-container,
+	#reviews-container {
+		width: 100vw;
+		margin: 7em 0em 0em 0em;
+		padding: 0em 0em 0em 0em;
+	}
+	#restaurant-name {
+		margin: 15px 0 15px;
+	}
+	#reviews-list {
+		padding: 1em;
+	}
+	body {
+		font-size:
+	}
+	p {
+		font-size: 15pt;
+	}
+	.restaurant-img {
+		min-height: unset;
+	}
+	#restaurants-list p {
+		font-size: 15pt;
+	}
+	#restaurants-list li a {
+		font-size: 13pt;
+	}
+	#restaurants-list li h1 {
+		font-size: 17pt;
 	}
 }
