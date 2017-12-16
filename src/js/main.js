@@ -143,7 +143,7 @@ createRestaurantHTML = (restaurant) => {
   picture.className = 'restaurant-img';
 
   const sourceSmall = document.createElement('source');
-  sourceSmall.setAttribute('media', '(min-width:700px)')
+  sourceSmall.setAttribute('media', '(max-width:700px)')
   sourceSmall.setAttribute('srcset',
     imageRepresentations.small_1x
     .concat(' 1x,')
@@ -153,7 +153,7 @@ createRestaurantHTML = (restaurant) => {
   picture.append(sourceSmall);
 
   const sourceLarge = document.createElement('source');
-  sourceLarge.setAttribute('media', '(min-width:1140px)')
+  sourceLarge.setAttribute('media', '(max-width:1140px)')
   sourceLarge.setAttribute('srcset',
     imageRepresentations.large_1x
     .concat(' 1x,')
