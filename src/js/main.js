@@ -138,10 +138,44 @@ fillRestaurantsHTML = (restaurants = self.restaurants) => {
 createRestaurantHTML = (restaurant) => {
   const li = document.createElement('li');
 
+  //<img  src="images/great_pic_800.jpg"
+  // sizes="(max-width: 400px) 100vw, (min-width: 401px) 50vw"
+  // srcset="images/great_pic_400.jpg x1, images/great_pic_800.jpg x2"
+  // alt="great picture">
+  //{
+  //   large_x1: large_x1,
+  //   large_x2: large_x2,
+  //   small_x1: small_x1,
+  //   small_x2: small_x2
+  // };
+  const imageRepresentations = DBHelper.imageUrlForRestaurant(restaurant);
+  const picture = document.createElement('picture');
+
+  const sourceSmall = document.createElement('source');
+  sourceSmall.setAttribute('media', '(min-width:700px')
+  sourceSmall.setAttribute('srcset',
+    imageRepresentations.small_1x
+    .concat(' 1x,')
+    .concat(imageRepresentations.small_2x)
+    .concat(' 2x')
+  );
+  picture.append(sourceSmall);
+
+  const sourceLarge = document.createElement('source');
+  sourceLarge.setAttribute('media', '(min-width:1140px')
+  sourceLarge.setAttribute('srcset',
+    imageRepresentations.large_1x
+    .concat(' 1x,')
+    .concat(imageRepresentations.large_2x)
+    .concat(' 2x')
+  );
+  picture.append(sourceLarge);
   const image = document.createElement('img');
   image.className = 'restaurant-img';
-  image.src = DBHelper.imageUrlForRestaurant(restaurant);
-  li.append(image);
+  image.src = imageRepresentations.large_1x;
+  image.setAttribute('alt', 'picture from the restaurant');
+  picture.append(image);
+  li.append(picture);
 
   const name = document.createElement('h1');
   name.innerHTML = restaurant.name;

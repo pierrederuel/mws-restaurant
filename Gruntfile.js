@@ -68,7 +68,7 @@ module.exports = function (grunt) {
                     engine: 'im',
                     sizes: [{
                         width: 1024,
-                        suffix: 'x2',
+                        suffix: '_2x',
                         quality: 80
                     }]
                 },
@@ -84,7 +84,7 @@ module.exports = function (grunt) {
                     engine: 'im',
                     sizes: [{
                         width: 1024,
-                        suffix: 'x1',
+                        suffix: '_1x',
                         quality: 40
                     }]
                 },
@@ -100,7 +100,7 @@ module.exports = function (grunt) {
                     engine: 'im',
                     sizes: [{
                         width: 560,
-                        suffix: 'x2',
+                        suffix: '_2x',
                         quality: 80
                     }]
                 },
@@ -116,7 +116,7 @@ module.exports = function (grunt) {
                     engine: 'im',
                     sizes: [{
                         width: 560,
-                        suffix: 'x1',
+                        suffix: '_1x',
                         quality: 40
                     }]
                 },

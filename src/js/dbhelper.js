@@ -150,9 +150,8 @@ class DBHelper {
    * Restaurant image URLs JSON.
    */
   static imageUrlForRestaurant(restaurant) {
-    const filename = DBHelper.imageRepresentationsPaths(restaurant.photograph);
-    const imagePaths = filename.large_x1;
-    return (`${imagePaths}`);
+    const representationsURLs = DBHelper.imageRepresentationsPaths(restaurant.photograph);
+    return representationsURLs;
   }
 
   /**
@@ -160,16 +159,16 @@ class DBHelper {
    */
   static imageRepresentationsPaths(fullFileName) {
     const [folderName, [filename, suffix]] = ['/img/', fullFileName.split('.')];
-    const large_x1 = folderName.concat(filename, '-1024x1', '.', suffix);
-    const large_x2 = folderName.concat(filename, '-1024x2', '.', suffix);
-    const small_x1 = folderName.concat(filename, '-560x1', '.', suffix);
-    const small_x2 = folderName.concat(filename, '-560x2', '.', suffix);
+    const large_1x = folderName.concat(filename, '-1024_1x', '.', suffix);
+    const large_2x = folderName.concat(filename, '-1024_2x', '.', suffix);
+    const small_1x = folderName.concat(filename, '-560_1x', '.', suffix);
+    const small_2x = folderName.concat(filename, '-560_2x', '.', suffix);
 
     return {
-      large_x1: large_x1,
-      large_x2: large_x2,
-      small_x1: small_x1,
-      small_x2: small_x2
+      large_1x: large_1x,
+      large_2x: large_2x,
+      small_1x: small_1x,
+      small_2x: small_2x
     };
   }
 
