@@ -147,10 +147,30 @@ class DBHelper {
   }
 
   /**
-   * Restaurant image URL.
+   * Restaurant image URLs JSON.
    */
   static imageUrlForRestaurant(restaurant) {
-    return (`/img/${restaurant.photograph}`);
+    const filename = DBHelper.imageRepresentationsPaths(restaurant.photograph);
+    const imagePaths = filename.large_x1;
+    return (`${imagePaths}`);
+  }
+
+  /**
+   * Paths for various image representations
+   */
+  static imageRepresentationsPaths(fullFileName) {
+    const [folderName, [filename, suffix]] = ['/img/', fullFileName.split('.')];
+    const large_x1 = folderName.concat(filename, '-1024x1', '.', suffix);
+    const large_x2 = folderName.concat(filename, '-1024x2', '.', suffix);
+    const small_x1 = folderName.concat(filename, '-560x1', '.', suffix);
+    const small_x2 = folderName.concat(filename, '-560x2', '.', suffix);
+
+    return {
+      large_x1: large_x1,
+      large_x2: large_x2,
+      small_x1: small_x1,
+      small_x2: small_x2
+    };
   }
 
   /**

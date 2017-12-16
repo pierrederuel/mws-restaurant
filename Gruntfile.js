@@ -4,7 +4,12 @@ module.exports = function (grunt) {
     // Project configuration.
     grunt.initConfig({
         // Prepare dist folder
-        clean: ['dist'],
+        clean: {
+            all: ['dist'],
+            static: {
+                src: ['dist/*', '!dist/img']
+            }
+        },
         connect: {
             server: {
                 options: {
@@ -128,8 +133,7 @@ module.exports = function (grunt) {
         mkdir: {
             images: {
                 options: {
-                    cwd: 'dist/',
-                    create: ['img']
+                    create: ['dist/img']
                 },
             },
         },
@@ -150,8 +154,8 @@ module.exports = function (grunt) {
         'responsive_images:small_high',
         'responsive_images:small_low'
     ]);
+    grunt.registerTask('default', ['serve']);
     grunt.registerTask('serve', ['build', 'connect', 'watch']);
-    grunt.registerTask('build:static', ['clean', 'copy:static', 'replace'])
-    grunt.registerTask('build', ['build:static', 'optimize_images']);
-    grunt.registerTask('cleans', ['clean'])
+    grunt.registerTask('build:static', ['clean:static', 'copy:static', 'replace'])
+    grunt.registerTask('build', ['clean:all', 'build:static', 'optimize_images']);
 };
