@@ -17,7 +17,7 @@ module.exports = function (grunt) {
         watch: {
             static: {
                 files: ['src/**/*.*'],
-                tasks: ['build']
+                tasks: ['build:static']
             }
         },
         replace: {
@@ -151,6 +151,7 @@ module.exports = function (grunt) {
         'responsive_images:small_low'
     ]);
     grunt.registerTask('serve', ['build', 'connect', 'watch']);
-    grunt.registerTask('build', ['clean', 'copy:static', 'replace', 'optimize_images']);
+    grunt.registerTask('build:static', ['clean', 'copy:static', 'replace'])
+    grunt.registerTask('build', ['build:static', 'optimize_images']);
     grunt.registerTask('cleans', ['clean'])
 };
