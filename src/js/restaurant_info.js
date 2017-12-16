@@ -57,7 +57,7 @@ fillRestaurantHTML = (restaurant = self.restaurant) => {
 
 
   const picture = document.getElementById('restaurant-img');
-  picture.className = 'restaurant-img'
+  picture.className = 'restaurant-img';
   const imageRepresentations = DBHelper.imageUrlForRestaurant(restaurant);
 
   const sourceSmall = document.createElement('source');
@@ -71,7 +71,7 @@ fillRestaurantHTML = (restaurant = self.restaurant) => {
   picture.append(sourceSmall);
 
   const sourceLarge = document.createElement('source');
-  sourceLarge.setAttribute('media', '(max-width:1140px)')
+  sourceLarge.setAttribute('media', '(min-width:701px)')
   sourceLarge.setAttribute('srcset',
     imageRepresentations.large_1x
     .concat(' 1x,')
@@ -83,6 +83,7 @@ fillRestaurantHTML = (restaurant = self.restaurant) => {
   const image = document.createElement('img');
   image.src = imageRepresentations.small_2x;
   image.setAttribute('alt', restaurant.alt);
+  image.className = 'restaurant-img';
   picture.append(image);
 
   const figcaption = document.createElement('figcaption');

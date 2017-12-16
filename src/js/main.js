@@ -153,7 +153,7 @@ createRestaurantHTML = (restaurant) => {
   picture.append(sourceSmall);
 
   const sourceLarge = document.createElement('source');
-  sourceLarge.setAttribute('media', '(max-width:1140px)')
+  sourceLarge.setAttribute('media', '(min-width:701px)')
   sourceLarge.setAttribute('srcset',
     imageRepresentations.large_1x
     .concat(' 1x,')
@@ -164,6 +164,7 @@ createRestaurantHTML = (restaurant) => {
   const image = document.createElement('img');
   image.src = imageRepresentations.small_2x;
   image.setAttribute('alt', restaurant.alt);
+  image.className = 'restaurant-img';
   picture.append(image);
 
   const figcaption = document.createElement('figcaption');
