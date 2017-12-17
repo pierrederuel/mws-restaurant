@@ -148,7 +148,7 @@
 	}
 
 	#breadcrumb {
-		padding: 0px 40px 0px;
+		padding: 0 40px 0;
 		list-style: none;
 		background-color: #eee;
 		font-size: 17px;
@@ -420,8 +420,8 @@
 		#restaurant-container,
 		#reviews-container {
 			width: 100vw;
-			margin: 7em 0em 0em 0em;
-			padding: 0em 0em 0em 0em;
+			margin: 7em 0 0 0;
+			padding: 0 0 0 0;
 		}
 		#restaurant-name {
 			margin: 15px 0 15px;
