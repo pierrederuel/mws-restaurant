@@ -106,7 +106,7 @@
 	header,
 	hgroup,
 	menu,
-	nav,
+	.title,
 	section {
 		display: block;
 		width: 100%;
@@ -129,17 +129,17 @@
 	}
 	/* ====================== Navigation ====================== */
 
-	nav {
+	.title {
 		width: 100%;
 		background-color: #252831;
 		text-align: center;
 	}
 
-	nav h1 {
+	.title h1 {
 		margin: auto;
 	}
 
-	nav h1 a {
+	.title h1 a {
 		color: #fff;
 		font-size: 14pt;
 		font-weight: 200;
@@ -384,7 +384,7 @@
 		#breadcrumb {
 			padding: 10px 40px 16px;
 		}
-		nav {
+		.title {
 			padding-top: 1em;
 		}
 		.inside #footer {
