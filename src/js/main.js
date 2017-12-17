@@ -141,9 +141,10 @@ createRestaurantHTML = (restaurant) => {
   const imageRepresentations = DBHelper.imageUrlForRestaurant(restaurant);
   const picture = document.createElement('picture');
   picture.className = 'restaurant-img';
-
+  picture.setAttribute('aria-labelledby', "fig_" + restaurant.id);
+  picture.setAttribute('role', 'img');
   const sourceSmall = document.createElement('source');
-  sourceSmall.setAttribute('media', '(max-width:700px)')
+  sourceSmall.setAttribute('media', '(max-width:700px)');
   sourceSmall.setAttribute('srcset',
     imageRepresentations.small_1x
     .concat(' 1x,')
@@ -153,7 +154,7 @@ createRestaurantHTML = (restaurant) => {
   picture.append(sourceSmall);
 
   const sourceLarge = document.createElement('source');
-  sourceLarge.setAttribute('media', '(min-width:701px)')
+  sourceLarge.setAttribute('media', '(min-width:701px)');
   sourceLarge.setAttribute('srcset',
     imageRepresentations.large_1x
     .concat(' 1x,')
@@ -168,6 +169,7 @@ createRestaurantHTML = (restaurant) => {
   picture.append(image);
 
   const figcaption = document.createElement('figcaption');
+  figcaption.setAttribute('id', "fig_" + restaurant.id)
   figcaption.innerHTML = restaurant.caption;
   picture.append(figcaption);
 
@@ -187,6 +189,7 @@ createRestaurantHTML = (restaurant) => {
 
   const more = document.createElement('a');
   more.innerHTML = 'View Details';
+  more.setAttribute('role', 'button');
   more.href = DBHelper.urlForRestaurant(restaurant);
   li.append(more)
 
