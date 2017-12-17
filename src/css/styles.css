@@ -429,14 +429,14 @@
 		#reviews-list {
 			padding: 1em;
 		}
-		body {
-			font-size:
-		}
 		p {
 			font-size: 15pt;
 		}
 		.restaurant-img {
 			min-height: unset;
+		}
+		#restaurants-list {
+			display: block;
 		}
 		#restaurants-list p {
 			font-size: 15pt;
