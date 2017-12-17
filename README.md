@@ -32,3 +32,10 @@ Most of the code in this project has been written to the ES6 JavaScript specific
 ```shel
 export MAPS_API_KEY="your key"
 ```
+
+## START the project
+
+```shel
+npm start
+```
+point your browser to : http://localhost:8000
