@@ -4,6 +4,7 @@ let restaurants,
 var map
 var markers = []
 
+
 /**
  * Fetch neighborhoods and cuisines as soon as the page is loaded.
  */
@@ -13,11 +14,32 @@ document.addEventListener('DOMContentLoaded', (event) => {
 });
 
 /**
+ * Service Worker (self init)
+ */
+(setupServiceWorker = () => {
+  return new Promise((resolve, reject) => {
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', function () {
+        navigator.serviceWorker.register('/sw.js').then(function (registration) {
+          // Registration was successful
+          console.log('ServiceWorker registration successful with scope: ', registration.scope);
+          resolve();
+        }, function (err) {
+          // registration failed :(
+          console.log('ServiceWorker registration failed: ', err);
+          reject(err);
+        });
+      });
+    }
+  });
+})();
+
+/**
  * Fetch all neighborhoods and set their HTML.
  */
 fetchNeighborhoods = () => {
   DBHelper.fetchNeighborhoods((error, neighborhoods) => {
-    if (error) { // Got an error
+    if (error) { //  Got an error
       console.error(error);
     } else {
       self.neighborhoods = neighborhoods;
@@ -138,10 +160,42 @@ fillRestaurantsHTML = (restaurants = self.restaurants) => {
 createRestaurantHTML = (restaurant) => {
   const li = document.createElement('li');
 
+  const imageRepresentations = DBHelper.imageUrlForRestaurant(restaurant);
+  const picture = document.createElement('picture');
+  picture.className = 'restaurant-img';
+  picture.setAttribute('aria-labelledby', "fig_" + restaurant.id);
+  picture.setAttribute('role', 'img');
+  const sourceSmall = document.createElement('source');
+  sourceSmall.setAttribute('media', '(max-width:700px)');
+  sourceSmall.setAttribute('srcset',
+    imageRepresentations.small_1x
+      .concat(' 1x,')
+      .concat(imageRepresentations.small_2x)
+      .concat(' 2x')
+  );
+  picture.append(sourceSmall);
+
+  const sourceLarge = document.createElement('source');
+  sourceLarge.setAttribute('media', '(min-width:701px)');
+  sourceLarge.setAttribute('srcset',
+    imageRepresentations.large_1x
+      .concat(' 1x,')
+      .concat(imageRepresentations.large_2x)
+      .concat(' 2x')
+  );
+  picture.append(sourceLarge);
   const image = document.createElement('img');
+  image.src = imageRepresentations.small_2x;
+  image.setAttribute('alt', restaurant.alt);
   image.className = 'restaurant-img';
-  image.src = DBHelper.imageUrlForRestaurant(restaurant);
-  li.append(image);
+  picture.append(image);
+
+  const figcaption = document.createElement('figcaption');
+  figcaption.setAttribute('id', "fig_" + restaurant.id)
+  figcaption.innerHTML = restaurant.caption;
+  picture.append(figcaption);
+
+  li.append(picture);
 
   const name = document.createElement('h1');
   name.innerHTML = restaurant.name;
@@ -157,6 +211,8 @@ createRestaurantHTML = (restaurant) => {
 
   const more = document.createElement('a');
   more.innerHTML = 'View Details';
+  more.setAttribute('role', 'button');
+  more.setAttribute('aria-label', 'View more about ' + restaurant.name);
   more.href = DBHelper.urlForRestaurant(restaurant);
   li.append(more)
 

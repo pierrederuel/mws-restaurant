@@ -55,9 +55,43 @@ fillRestaurantHTML = (restaurant = self.restaurant) => {
   const address = document.getElementById('restaurant-address');
   address.innerHTML = restaurant.address;
 
-  const image = document.getElementById('restaurant-img');
-  image.className = 'restaurant-img'
-  image.src = DBHelper.imageUrlForRestaurant(restaurant);
+
+  const picture = document.getElementById('restaurant-img');
+  picture.className = 'restaurant-img';
+  picture.setAttribute('aria-labelledby', "fig_" + restaurant.id);
+  picture.setAttribute('role', 'img');
+  const imageRepresentations = DBHelper.imageUrlForRestaurant(restaurant);
+
+  const sourceSmall = document.createElement('source');
+  sourceSmall.setAttribute('media', '(max-width:700px)')
+  sourceSmall.setAttribute('srcset',
+    imageRepresentations.small_1x
+    .concat(' 1x,')
+    .concat(imageRepresentations.small_2x)
+    .concat(' 2x')
+  );
+  picture.append(sourceSmall);
+
+  const sourceLarge = document.createElement('source');
+  sourceLarge.setAttribute('media', '(min-width:701px)')
+  sourceLarge.setAttribute('srcset',
+    imageRepresentations.large_1x
+    .concat(' 1x,')
+    .concat(imageRepresentations.large_2x)
+    .concat(' 2x')
+  );
+  picture.append(sourceLarge);
+
+  const image = document.createElement('img');
+  image.src = imageRepresentations.small_2x;
+  image.setAttribute('alt', restaurant.alt);
+  image.className = 'restaurant-img';
+  picture.append(image);
+
+  const figcaption = document.createElement('figcaption');
+  figcaption.setAttribute('id', "fig_" + restaurant.id)
+  figcaption.innerHTML = restaurant.caption;
+  picture.append(figcaption);
 
   const cuisine = document.getElementById('restaurant-cuisine');
   cuisine.innerHTML = restaurant.cuisine_type;
@@ -139,7 +173,7 @@ createReviewHTML = (review) => {
 /**
  * Add restaurant name to the breadcrumb navigation menu
  */
-fillBreadcrumb = (restaurant=self.restaurant) => {
+fillBreadcrumb = (restaurant = self.restaurant) => {
   const breadcrumb = document.getElementById('breadcrumb');
   const li = document.createElement('li');
   li.innerHTML = restaurant.name;

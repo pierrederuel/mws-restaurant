@@ -8,7 +8,7 @@ class DBHelper {
    * Change this to restaurants.json file location on your server.
    */
   static get DATABASE_URL() {
-    const port = 8000 // Change this to your server port
+    const port = '@@server_port' // Change this to your server port
     return `http://localhost:${port}/data/restaurants.json`;
   }
 
@@ -147,10 +147,29 @@ class DBHelper {
   }
 
   /**
-   * Restaurant image URL.
+   * Restaurant image URLs JSON.
    */
   static imageUrlForRestaurant(restaurant) {
-    return (`/img/${restaurant.photograph}`);
+    const representationsURLs = DBHelper.imageRepresentationsPaths(restaurant.photograph);
+    return representationsURLs;
+  }
+
+  /**
+   * Paths for various image representations
+   */
+  static imageRepresentationsPaths(fullFileName) {
+    const [folderName, [filename, suffix]] = ['/img/', fullFileName.split('.')];
+    const large_1x = folderName.concat(filename, '-1024_1x', '.', suffix);
+    const large_2x = folderName.concat(filename, '-1024_2x', '.', suffix);
+    const small_1x = folderName.concat(filename, '-560_1x', '.', suffix);
+    const small_2x = folderName.concat(filename, '-560_2x', '.', suffix);
+
+    return {
+      large_1x: large_1x,
+      large_2x: large_2x,
+      small_1x: small_1x,
+      small_2x: small_2x
+    };
   }
 
   /**
@@ -162,8 +181,8 @@ class DBHelper {
       title: restaurant.name,
       url: DBHelper.urlForRestaurant(restaurant),
       map: map,
-      animation: google.maps.Animation.DROP}
-    );
+      animation: google.maps.Animation.DROP
+    });
     return marker;
   }
 
