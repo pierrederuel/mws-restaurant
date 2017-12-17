@@ -58,6 +58,8 @@ fillRestaurantHTML = (restaurant = self.restaurant) => {
 
   const picture = document.getElementById('restaurant-img');
   picture.className = 'restaurant-img';
+  picture.setAttribute('aria-labelledby', "fig_" + restaurant.id);
+  picture.setAttribute('role', 'img');
   const imageRepresentations = DBHelper.imageUrlForRestaurant(restaurant);
 
   const sourceSmall = document.createElement('source');
@@ -87,6 +89,7 @@ fillRestaurantHTML = (restaurant = self.restaurant) => {
   picture.append(image);
 
   const figcaption = document.createElement('figcaption');
+  figcaption.setAttribute('id', "fig_" + restaurant.id)
   figcaption.innerHTML = restaurant.caption;
   picture.append(figcaption);
 
