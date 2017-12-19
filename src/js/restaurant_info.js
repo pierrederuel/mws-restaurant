@@ -84,7 +84,7 @@ fillRestaurantHTML = (restaurant = self.restaurant) => {
 
   const image = document.createElement('img');
   image.src = imageRepresentations.small_2x;
-  image.setAttribute('alt', restaurant.alt);
+  image.setAttribute('alt', 'restaurant '.concat(restaurant.name, ', ', restaurant.alt));
   image.className = 'restaurant-img';
   picture.append(image);
 
