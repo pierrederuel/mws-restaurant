@@ -50,6 +50,7 @@
 	}
 
 	ul,
+	ol,
 	li {
 		font-family: Arial, Helvetica, sans-serif;
 		font-size: 10pt;
@@ -176,8 +177,13 @@
 	/* Add a color on mouse-over */
 
 	#breadcrumb li a:hover {
-		color: #01447e;
+		color: #7e3d01;
 		text-decoration: underline;
+	}
+
+	#breadcrumb .current-page {
+		color: #000;
+		text-decoration: underline
 	}
 	/* ====================== Map ====================== */
 
@@ -233,10 +239,10 @@
 		background-color: #fff;
 		border: 2px solid #ccc;
 		font-family: Arial, sans-serif;
-		margin: 15px;
 		min-height: 380px;
 		padding: 1em;
-		text-align: left;
+		width: 73%;
+		margin: auto auto 1em auto;
 	}
 
 	.restaurant-img {
@@ -287,10 +293,10 @@
 
 	.inside #map-container {
 		background: blue none repeat scroll 0 0;
-		height: 93%;
 		position: fixed;
 		right: 0;
-		top: 3.4em;
+		top: 7.7em;
+		bottom: 0;
 		width: 50%;
 	}
 

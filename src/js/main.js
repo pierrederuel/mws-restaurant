@@ -169,9 +169,9 @@ createRestaurantHTML = (restaurant) => {
   sourceSmall.setAttribute('media', '(max-width:700px)');
   sourceSmall.setAttribute('srcset',
     imageRepresentations.small_1x
-      .concat(' 1x,')
-      .concat(imageRepresentations.small_2x)
-      .concat(' 2x')
+    .concat(' 1x,')
+    .concat(imageRepresentations.small_2x)
+    .concat(' 2x')
   );
   picture.append(sourceSmall);
 
@@ -179,14 +179,14 @@ createRestaurantHTML = (restaurant) => {
   sourceLarge.setAttribute('media', '(min-width:701px)');
   sourceLarge.setAttribute('srcset',
     imageRepresentations.large_1x
-      .concat(' 1x,')
-      .concat(imageRepresentations.large_2x)
-      .concat(' 2x')
+    .concat(' 1x,')
+    .concat(imageRepresentations.large_2x)
+    .concat(' 2x')
   );
   picture.append(sourceLarge);
   const image = document.createElement('img');
   image.src = imageRepresentations.small_2x;
-  image.setAttribute('alt', restaurant.alt);
+  image.setAttribute('alt', 'restaurant '.concat(restaurant.name, ', ', restaurant.alt));
   image.className = 'restaurant-img';
   picture.append(image);
 
