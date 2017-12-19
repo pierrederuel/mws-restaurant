@@ -30,7 +30,7 @@ module.exports = function (grunt) {
                 options: {
                     patterns: [{
                             match: 'maps_api_key',
-                            replacement: process.env.MAPS_API_KEY
+                            replacement: process.env.MAPS_API_KEY || ""
                         },
                         {
                             match: "server_port",
