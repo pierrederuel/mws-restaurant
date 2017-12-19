@@ -233,10 +233,10 @@
 		background-color: #fff;
 		border: 2px solid #ccc;
 		font-family: Arial, sans-serif;
-		margin: 15px;
 		min-height: 380px;
 		padding: 1em;
-		text-align: left;
+		width: 73%;
+		margin: auto auto 1em auto;
 	}
 
 	.restaurant-img {
