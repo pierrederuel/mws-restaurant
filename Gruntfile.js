@@ -1,6 +1,6 @@
-module.exports = function (grunt) {
+module.exports = function(grunt) {
 
-    const server_port = 8000;
+    const server_port = process.env.PORT || 8000;
     // Project configuration.
     grunt.initConfig({
         // Prepare dist folder
@@ -13,6 +13,7 @@ module.exports = function (grunt) {
         connect: {
             server: {
                 options: {
+                    keepalive: true,
                     livereload: true,
                     base: 'dist/',
                     port: server_port
@@ -155,7 +156,8 @@ module.exports = function (grunt) {
         'responsive_images:small_low'
     ]);
     grunt.registerTask('default', ['serve']);
-    grunt.registerTask('serve', ['build', 'connect', 'watch']);
+    grunt.registerTask('serve', ['connect']);
+    grunt.registerTask('serve-watch', ['build', 'connect', 'watch']);
     grunt.registerTask('build:static', ['clean:static', 'copy:static', 'replace'])
     grunt.registerTask('build', ['clean:all', 'build:static', 'optimize_images']);
 };
