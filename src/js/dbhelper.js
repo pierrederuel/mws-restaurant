@@ -9,7 +9,7 @@ class DBHelper {
    */
   static get DATABASE_URL() {
     const port = '@@server_port' // Change this to your server port
-    return `http://localhost:${port}/data/restaurants.json`;
+    return `http://localhost:${port}/restaurants`;
   }
 
   /**
@@ -20,8 +20,7 @@ class DBHelper {
     xhr.open('GET', DBHelper.DATABASE_URL);
     xhr.onload = () => {
       if (xhr.status === 200) { // Got a success response from server!
-        const json = JSON.parse(xhr.responseText);
-        const restaurants = json.restaurants;
+        const restaurants = JSON.parse(xhr.responseText);
         callback(null, restaurants);
       } else { // Oops!. Got an error from server.
         const error = (`Request failed. Returned status of ${xhr.status}`);
@@ -157,8 +156,8 @@ class DBHelper {
   /**
    * Paths for various image representations
    */
-  static imageRepresentationsPaths(fullFileName) {
-    const [folderName, [filename, suffix]] = ['./img/', fullFileName.split('.')];
+  static imageRepresentationsPaths(filename) {
+    const [folderName, suffix] = ['./img/', 'jpg'];
     const large_1x = folderName.concat(filename, '-1024_1x', '.', suffix);
     const large_2x = folderName.concat(filename, '-1024_2x', '.', suffix);
     const small_1x = folderName.concat(filename, '-560_1x', '.', suffix);
