@@ -160,42 +160,46 @@ fillRestaurantsHTML = (restaurants = self.restaurants) => {
 createRestaurantHTML = (restaurant) => {
   const li = document.createElement('li');
 
-  const imageRepresentations = DBHelper.imageUrlForRestaurant(restaurant);
-  const picture = document.createElement('picture');
-  picture.className = 'restaurant-img';
-  picture.setAttribute('aria-labelledby', "fig_" + restaurant.id);
-  picture.setAttribute('role', 'img');
-  const sourceSmall = document.createElement('source');
-  sourceSmall.setAttribute('media', '(max-width:700px)');
-  sourceSmall.setAttribute('srcset',
-    imageRepresentations.small_1x
-    .concat(' 1x,')
-    .concat(imageRepresentations.small_2x)
-    .concat(' 2x')
-  );
-  picture.append(sourceSmall);
+  if (restaurant.photograph) {
+    const imageRepresentations = DBHelper.imageUrlForRestaurant(restaurant);
+    const picture = document.createElement('picture');
+    picture.className = 'restaurant-img';
+    picture.setAttribute('aria-labelledby', "fig_" + restaurant.id);
+    picture.setAttribute('role', 'img');
 
-  const sourceLarge = document.createElement('source');
-  sourceLarge.setAttribute('media', '(min-width:701px)');
-  sourceLarge.setAttribute('srcset',
-    imageRepresentations.large_1x
-    .concat(' 1x,')
-    .concat(imageRepresentations.large_2x)
-    .concat(' 2x')
-  );
-  picture.append(sourceLarge);
-  const image = document.createElement('img');
-  image.src = imageRepresentations.small_2x;
-  image.setAttribute('alt', 'restaurant '.concat(restaurant.name, ', ', restaurant.alt));
-  image.className = 'restaurant-img';
-  picture.append(image);
+    const sourceSmall = document.createElement('source');
+    sourceSmall.setAttribute('media', '(max-width:700px)');
+    sourceSmall.setAttribute('srcset',
+      imageRepresentations.small_1x
+      .concat(' 1x,')
+      .concat(imageRepresentations.small_2x)
+      .concat(' 2x')
+    );
+    picture.append(sourceSmall);
 
-  const figcaption = document.createElement('figcaption');
-  figcaption.setAttribute('id', "fig_" + restaurant.id)
-  figcaption.innerHTML = restaurant.caption;
-  picture.append(figcaption);
+    const sourceLarge = document.createElement('source');
+    sourceLarge.setAttribute('media', '(min-width:701px)');
+    sourceLarge.setAttribute('srcset',
+      imageRepresentations.large_1x
+      .concat(' 1x,')
+      .concat(imageRepresentations.large_2x)
+      .concat(' 2x')
+    );
+    picture.append(sourceLarge);
 
-  li.append(picture);
+    const image = document.createElement('img');
+    image.src = imageRepresentations.small_2x;
+    image.setAttribute('alt', 'restaurant '.concat(restaurant.name, ', ', restaurant.alt));
+    image.className = 'restaurant-img';
+    picture.append(image);
+
+    const figcaption = document.createElement('figcaption');
+    figcaption.setAttribute('id', "fig_" + restaurant.id)
+    figcaption.innerHTML = restaurant.caption;
+    picture.append(figcaption);
+
+    li.append(picture);
+  }
 
   const name = document.createElement('h1');
   name.innerHTML = restaurant.name;
