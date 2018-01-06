@@ -21,6 +21,14 @@ class DBHelper {
     xhr.onload = () => {
       if (xhr.status === 200) { // Got a success response from server!
         const restaurants = JSON.parse(xhr.responseText);
+        const imageData = ImageInfo.ImageInfoData;
+        restaurants.map(function (restaurant) {
+          if (restaurant.photograph) {
+            restaurant.alt = imageData[restaurant.photograph].alt;
+            restaurant.caption = imageData[restaurant.photograph].caption;
+          }
+          return restaurant;
+        });
         callback(null, restaurants);
       } else { // Oops!. Got an error from server.
         const error = (`Request failed. Returned status of ${xhr.status}`);
@@ -39,6 +47,11 @@ class DBHelper {
     xhr.onload = () => {
       if (xhr.status === 200) { // Got a success response from server!
         const restaurant = JSON.parse(xhr.responseText);
+        if (restaurant.photograph) {
+          const imageData = ImageInfo.ImageInfoData;
+          restaurant.alt = imageData[restaurant.photograph].alt;
+          restaurant.caption = imageData[restaurant.photograph].caption;
+        }
         callback(null, restaurant);
       } else { // Oops!. Got an error from server.
         const error = (`Request failed. Returned status of ${xhr.status}`);

@@ -5,13 +5,15 @@
   "main": "index.html",
   "dependencies": {
     "grunt": "^1.0.1",
-    "grunt-mkdir": "^1.0.0",
-    "grunt-responsive-images": "^1.10.1",
     "grunt-contrib-clean": "^1.1.0",
     "grunt-contrib-connect": "^1.0.2",
     "grunt-contrib-copy": "^1.0.0",
     "grunt-contrib-watch": "^1.0.0",
-    "grunt-replace": "^1.0.1"
+    "grunt-mkdir": "^1.0.0",
+    "grunt-replace": "^1.0.1",
+    "grunt-responsive-images": "^1.10.1",
+    "gulp-grunt": "^0.5.5",
+    "gulp-sass": "^3.1.0"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -26,5 +28,8 @@
   "bugs": {
     "url": "https://github.com/kapekost/mws-restaurant/issues"
   },
-  "homepage": "https://github.com/kapekost/mws-restaurant#readme"
+  "homepage": "https://github.com/kapekost/mws-restaurant#readme",
+  "devDependencies": {
+    "gulp": "^3.9.1"
+  }
 }

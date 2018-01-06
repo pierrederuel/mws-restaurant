@@ -22,7 +22,7 @@ module.exports = function (grunt) {
         },
         watch: {
             static: {
-                files: ['src/**/*.*'],
+                files: ['src/**/*.*', '!**/scss/**'],
                 tasks: ['build:static']
             }
         },
@@ -56,7 +56,7 @@ module.exports = function (grunt) {
                 files: [{
                     expand: true,
                     cwd: 'src',
-                    src: ['**/**', '!**/img/**'],
+                    src: ['**/**', '!**/img/**', '!**/scss/**'],
                     dest: 'dist/'
                 }]
 
