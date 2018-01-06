@@ -69,3 +69,5 @@ class ImageInfo {
     }
   }
 }
+
+module.exports = ImageInfo;

@@ -1,3 +1,4 @@
+const ImageInfo = require('./images')
 /**
  * Common database helper functions.
  */
@@ -198,3 +199,4 @@ class DBHelper {
   }
 
 }
+module.exports = DBHelper;

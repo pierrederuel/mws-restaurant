@@ -15,6 +15,7 @@ module.exports = function (grunt) {
             server: {
                 options: {
                     livereload: true,
+                    keepalive: true,
                     base: 'dist/',
                     port: server_port
                 }
@@ -30,14 +31,9 @@ module.exports = function (grunt) {
             dist: {
                 options: {
                     patterns: [{
-                            match: 'maps_api_key',
-                            replacement: process.env.MAPS_API_KEY || ""
-                        },
-                        {
-                            match: "server_port",
-                            replacement: db_server_port
-                        }
-                    ]
+                        match: 'maps_api_key',
+                        replacement: process.env.MAPS_API_KEY || ""
+                    }]
                 },
                 // Replace the google maps key
                 // from the environment variables
@@ -57,6 +53,15 @@ module.exports = function (grunt) {
                     expand: true,
                     cwd: 'src',
                     src: ['**/**', '!**/img/**', '!**/scss/**'],
+                    dest: 'dist/'
+                }]
+
+            },
+            html: {
+                files: [{
+                    expand: true,
+                    cwd: 'src',
+                    src: ['**/*.html', 'sw.js'],
                     dest: 'dist/'
                 }]
 
@@ -159,4 +164,6 @@ module.exports = function (grunt) {
     grunt.registerTask('serve', ['build', 'connect', 'watch']);
     grunt.registerTask('build:static', ['clean:static', 'copy:static', 'replace'])
     grunt.registerTask('build', ['clean:all', 'build:static', 'optimize_images']);
+
+    grunt.registerTask('gulp', ['copy:html', 'replace', 'optimize_images', 'connect'])
 };
