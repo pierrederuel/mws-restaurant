@@ -71,6 +71,7 @@ function compile(watch) {
 function watch() {
     gulp.watch('src/scss/*.scss', ['sass']);
     gulp.watch('src/*.html', ['html']);
+    gulp.watch('src/sw.js', ['sw']);
     return compile(true);
 };
 
@@ -83,6 +84,11 @@ gulp.task('sass', function () {
 gulp.task('html', function () {
     return gulp.src('src/*.html')
         .pipe(replace('@@maps_api_key', process.env.MAPS_API_KEY))
+        .pipe(gulp.dest('dist'))
+});
+
+gulp.task('sw', function () {
+    return gulp.src('src/sw.js')
         .pipe(gulp.dest('dist'))
 });
 
@@ -100,5 +106,5 @@ gulp.task('watch', function () {
 });
 // Default task
 gulp.task('default', ['clean'], function () {
-    gulp.start('watch', 'html', 'sass', 'grunt-gulp');
+    gulp.start('watch', 'html', 'sw', 'sass', 'grunt-gulp');
 });

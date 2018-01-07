@@ -1,4 +1,5 @@
-const ImageInfo = require('./images')
+const ImageInfo = require('./images');
+const idb = require('idb');
 /**
  * Common database helper functions.
  */
