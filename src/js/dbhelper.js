@@ -14,10 +14,32 @@ class DBHelper {
     return `http://localhost:${port}/restaurants`;
   }
 
+  static initIndexedDB() {
+    this.dbPromise = idb.open('restaurant-db', 1, function (upgradeDb) {
+      switch (upgradeDb.oldVersion) {
+        case 0:
+        case 1:
+          const restaurantStore = upgradeDb.createObjectStore('restaurants', {
+            keyPath: 'id'
+          });
+          restaurantStore.createIndex('photographs', 'photograph');
+      }
+    });
+  }
+
   /**
    * Fetch all restaurants.
    */
   static fetchRestaurants(callback) {
+    var self = this;
+    this.dbPromise.then(function (db) {
+      var tx = db.transaction('restaurants');
+      var restaurantsStore = tx.objectStore('restaurants');
+      return restaurantsStore.getAll();
+    }).then(function (restaurants) {
+      callback(null, restaurants);
+    });
+
     let xhr = new XMLHttpRequest();
     xhr.open('GET', DBHelper.DATABASE_URL);
     xhr.onload = () => {
@@ -29,6 +51,14 @@ class DBHelper {
             restaurant.alt = imageData[restaurant.photograph].alt;
             restaurant.caption = imageData[restaurant.photograph].caption;
           }
+          self.dbPromise.then(function (db) {
+            var tx = db.transaction('restaurants', 'readwrite');
+            var restaurantStore = tx.objectStore('restaurants');
+            restaurantStore.put(restaurant);
+          }).then(function () {
+            console.log('restaurants done promise');
+          });
+
           return restaurant;
         });
         callback(null, restaurants);

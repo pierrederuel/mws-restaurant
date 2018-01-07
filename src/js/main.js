@@ -35,6 +35,10 @@ document.addEventListener('DOMContentLoaded', (event) => {
     }
   });
 })();
+/**
+ * Initialise indexedDB
+ */
+DBHelper.initIndexedDB();
 
 /**
  * Fetch all neighborhoods and set their HTML.
