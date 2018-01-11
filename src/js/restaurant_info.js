@@ -23,6 +23,12 @@ window.initMap = () => {
 }
 
 /**
+ * Initialise indexedDB
+ */
+DBHelper.initIndexedDB();
+
+
+/**
  * Get current restaurant from page URL.
  */
 fetchRestaurantFromURL = (callback) => {

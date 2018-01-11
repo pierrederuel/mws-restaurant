@@ -346,13 +346,6 @@ class DBHelper {
    */
   static fetchRestaurants(callback) {
     var self = this;
-    this.dbPromise.then(function (db) {
-      var tx = db.transaction('restaurants');
-      var restaurantsStore = tx.objectStore('restaurants');
-      return restaurantsStore.getAll();
-    }).then(function (restaurants) {
-      callback(null, restaurants);
-    });
 
     let xhr = new XMLHttpRequest();
     xhr.open('GET', DBHelper.DATABASE_URL);
@@ -369,7 +362,7 @@ class DBHelper {
           self.dbPromise.then(function (db) {
             var tx = db.transaction('restaurants', 'readwrite');
             var restaurantStore = tx.objectStore('restaurants');
-            restaurantStore.put(restaurant);
+            return restaurantStore.put(restaurant);
           }).then(function () {
             console.log('restaurants done promise');
           });
@@ -379,8 +372,16 @@ class DBHelper {
         callback(null, restaurants);
       } else {
         // Oops!. Got an error from server.
-        const error = `Request failed. Returned status of ${xhr.status}`;
-        callback(error, null);
+        this.dbPromise.then(function (db) {
+          var tx = db.transaction('restaurants');
+          var restaurantsStore = tx.objectStore('restaurants');
+          return restaurantsStore.getAll();
+        }).then(function (restaurants) {
+          callback(null, restaurants);
+        }).catch(function () {
+          const error = `Request failed.`;
+          callback(error, null);
+        });
       }
     };
     xhr.send();
@@ -390,6 +391,8 @@ class DBHelper {
    * Fetch a restaurant by its ID.
    */
   static fetchRestaurantById(id, callback) {
+    var self = this;
+
     let xhr = new XMLHttpRequest();
     xhr.open('GET', DBHelper.DATABASE_URL + '/' + id);
     xhr.onload = () => {
@@ -401,11 +404,24 @@ class DBHelper {
           restaurant.alt = imageData[restaurant.photograph].alt;
           restaurant.caption = imageData[restaurant.photograph].caption;
         }
+        self.dbPromise.then(function (db) {
+          var tx = db.transaction('restaurants', 'readwrite');
+          var restaurantStore = tx.objectStore('restaurants');
+          return restaurantStore.put(restaurant);
+        });
         callback(null, restaurant);
       } else {
         // Oops!. Got an error from server.
-        const error = `Request failed. Returned status of ${xhr.status}`;
-        callback(error, null);
+        this.dbPromise.then(function (db) {
+          var tx = db.transaction('restaurants');
+          var restaurantsStore = tx.objectStore('restaurants');
+          return restaurantsStore.get(parseInt(id));
+        }).then(function (restaurant) {
+          callback(null, restaurant);
+        }).catch(function () {
+          const error = `Request failed.`;
+          callback(error, null);
+        });
       }
     };
     xhr.send();
