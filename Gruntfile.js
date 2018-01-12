@@ -5,12 +5,6 @@ module.exports = function (grunt) {
     // Project configuration.
     grunt.initConfig({
         // Prepare dist folder
-        clean: {
-            all: ['dist'],
-            static: {
-                src: ['dist/*', '!dist/img']
-            }
-        },
         connect: {
             server: {
                 options: {
@@ -87,19 +81,90 @@ module.exports = function (grunt) {
                     cwd: 'src/',
                     dest: 'dist/'
                 }]
+            },
+            small_launcher: {
+                options: {
+                    engine: 'im',
+                    sizes: [{
+                        width: 48,
+                        height: 48,
+                        suffix: '-icon-1x',
+                        quality: 80
+                    }]
+                },
+                files: [{
+                    expand: true,
+                    src: ['img/logo/*.{gif,jpg,png}'],
+                    cwd: 'src/',
+                    dest: 'dist/'
+                }]
+            },
+            medium_launcher: {
+                options: {
+                    engine: 'im',
+                    sizes: [{
+                        width: 96,
+                        height: 96,
+                        suffix: '-icon-2x',
+                        quality: 80
+                    }]
+                },
+                files: [{
+                    expand: true,
+                    src: ['img/logo/*.{gif,jpg,png}'],
+                    cwd: 'src/',
+                    dest: 'dist/'
+                }]
+            },
+            large_launcher: {
+                options: {
+                    engine: 'im',
+                    sizes: [{
+                        width: 192,
+                        height: 192,
+                        suffix: '-icon-4x',
+                        quality: 80
+                    }]
+                },
+                files: [{
+                    expand: true,
+                    src: ['img/logo/*.{gif,jpg,png}'],
+                    cwd: 'src/',
+                    dest: 'dist/'
+                }]
+            },
+            xlarge_launcher: {
+                options: {
+                    engine: 'im',
+                    sizes: [{
+                        width: 512,
+                        height: 512,
+                        suffix: '-icon-8x',
+                        quality: 80
+                    }]
+                },
+                files: [{
+                    expand: true,
+                    src: ['img/logo/*.{gif,jpg,png}'],
+                    cwd: 'src/',
+                    dest: 'dist/'
+                }]
             }
         }
     });
 
     grunt.loadNpmTasks('grunt-contrib-connect');
-    grunt.loadNpmTasks('grunt-contrib-clean');
     grunt.loadNpmTasks('grunt-responsive-images');
 
     grunt.registerTask('optimize_images', [
         'responsive_images:large_high',
         'responsive_images:large_low',
         'responsive_images:small_high',
-        'responsive_images:small_low'
+        'responsive_images:small_low',
+        'responsive_images:small_launcher',
+        'responsive_images:medium_launcher',
+        'responsive_images:large_launcher',
+        'responsive_images:xlarge_launcher',
     ]);
-    grunt.registerTask('gulp', ['optimize_images', 'connect'])
+    grunt.registerTask('images', ['optimize_images'])
 };

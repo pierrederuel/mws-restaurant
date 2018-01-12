@@ -8,8 +8,9 @@ const browserify = require('browserify');
 const watchify = require('watchify');
 const babel = require('babelify');
 const del = require('del');
-
+const webp = require('gulp-webp');
 const replace = require('gulp-replace');
+
 
 const db_server_port = 1337;
 
@@ -92,6 +93,24 @@ gulp.task('sw', function () {
         .pipe(gulp.dest('dist'))
 });
 
+gulp.task('manifest', function () {
+    //do images here
+    return gulp.src('src/manifest.json')
+        .pipe(gulp.dest('dist'))
+});
+
+gulp.task('ico', function () {
+    //do images here
+    return gulp.src('src/favicon.ico')
+        .pipe(gulp.dest('dist'))
+});
+
+gulp.task('webp', function () {
+    return gulp.src('dist/img/*.jpg')
+        .pipe(webp())
+        .pipe(gulp.dest('dist/img'))
+});
+
 gulp.task('clean', function () {
     return del('dist/**', {
         force: true
@@ -101,10 +120,17 @@ gulp.task('clean', function () {
 gulp.task('build', function () {
     return compile();
 });
+
 gulp.task('watch', function () {
     return watch();
 });
+
+gulp.task('images', ['grunt-images'], function () {
+    // return gulp.start('webp');
+});
+
 // Default task
 gulp.task('default', ['clean'], function () {
-    gulp.start('watch', 'html', 'sw', 'sass', 'grunt-gulp');
+    return gulp.start('watch', 'grunt-connect',
+        'html', 'sw', 'manifest', 'ico', 'sass', 'images')
 });

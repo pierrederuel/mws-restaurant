@@ -1,0 +1,29 @@
+{
+    "short_name": "Restaurants",
+    "name": "Restaurants reviews",
+    "background_color": "#2196F3",
+    "theme_color": "#2196F3",
+    "display": "standalone",
+    "icons": [{
+            "src": "img/logo/launcher-48x48-icon-1x.png",
+            "type": "image/png",
+            "sizes": "48x48"
+        },
+        {
+            "src": "img/logo/launcher-96x96-icon-2x.png",
+            "type": "image/png",
+            "sizes": "96x96"
+        },
+        {
+            "src": "img/logo/launcher-192x192-icon-4x.png",
+            "type": "image/png",
+            "sizes": "192x192"
+        },
+        {
+            "src": "img/logo/launcher-512x512-icon-8x.png",
+            "type": "image/png",
+            "sizes": "512x512"
+        }
+    ],
+    "start_url": "index.html?launcher=true"
+}

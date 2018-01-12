@@ -6,6 +6,15 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="stylesheet" src="//normalize-css.googlecode.com/svn/trunk/normalize.css" />
 	<link rel="stylesheet" href="css/styles.css">
+	<link rel="manifest" href="manifest.json">
+	<!-- Add to homescreen for Chrome on Android -->
+	<meta name="mobile-web-app-capable" content="yes">
+	<!-- Add to homescreen for Safari on iOS -->
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<meta name="apple-mobile-web-app-title" content="Restaurant Reviews">
+	<meta name="theme-color" content="blue" />
+	<link href="favicon.ico" rel="shortcut icon">
 	<title>Restaurant Reviews</title>
 </head>
 
@@ -23,7 +32,7 @@
 			<div id="map"></div>
 		</section>
 		<section>
-			<div aria-labell="filter options" class="filter-options">
+			<div aria-label="filter options" class="filter-options">
 				<h2 id="filter-options">Filter Results</h2>
 				<div>
 					<label id="neighborhoods-label" hidden>Select Neighborhood</label>

@@ -537,7 +537,7 @@ class DBHelper {
    * Paths for various image representations
    */
   static imageRepresentationsPaths(filename) {
-    const [folderName, suffix] = ['./img/', 'jpg'];
+    const [folderName, suffix] = ['./img/', 'jpg']; //,'webp'];
     const large_1x = folderName.concat(filename, '-1024_1x', '.', suffix);
     const large_2x = folderName.concat(filename, '-1024_2x', '.', suffix);
     const small_1x = folderName.concat(filename, '-560_1x', '.', suffix);
