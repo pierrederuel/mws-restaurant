@@ -1,13 +1,12 @@
-module.exports = function (grunt) {
+module.exports = function(grunt) {
 
-    const server_port = 8000;
+    const server_port = process.env.PORT || 8000;
     // Project configuration.
     grunt.initConfig({
         // Prepare dist folder
         connect: {
             server: {
                 options: {
-                    // livereload: true,
                     keepalive: true,
                     base: 'dist/',
                     port: server_port
