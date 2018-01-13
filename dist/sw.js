@@ -7,7 +7,6 @@ self.addEventListener('fetch', function (event) {
             if (response) {
                 return response;
             }
-
             // IMPORTANT: Clone the request. A request is a stream and
             // can only be consumed once. Since we are consuming this
             // once by cache and once by the browser for fetch, we need

@@ -1,3 +1,5 @@
+const ImageInfo = require('./images');
+const idb = require('idb');
 /**
  * Common database helper functions.
  */
@@ -9,23 +11,59 @@ class DBHelper {
    */
   static get DATABASE_URL() {
     const port = '@@server_port' // Change this to your server port
-    return `http://localhost:${port}/data/restaurants.json`;
+    return `http://localhost:${port}/restaurants`;
+  }
+
+  static initIndexedDB() {
+    this.dbPromise = idb.open('restaurant-db', 1, function (upgradeDb) {
+      switch (upgradeDb.oldVersion) {
+        case 0:
+        case 1:
+          const restaurantStore = upgradeDb.createObjectStore('restaurants', {
+            keyPath: 'id'
+          });
+          restaurantStore.createIndex('photographs', 'photograph');
+      }
+    });
   }
 
   /**
    * Fetch all restaurants.
    */
   static fetchRestaurants(callback) {
+    var self = this;
+
+
     let xhr = new XMLHttpRequest();
     xhr.open('GET', DBHelper.DATABASE_URL);
     xhr.onload = () => {
       if (xhr.status === 200) { // Got a success response from server!
-        const json = JSON.parse(xhr.responseText);
-        const restaurants = json.restaurants;
+        const restaurants = JSON.parse(xhr.responseText);
+        const imageData = ImageInfo.ImageInfoData;
+        restaurants.map(function (restaurant) {
+          if (restaurant.photograph) {
+            restaurant.alt = imageData[restaurant.photograph].alt;
+            restaurant.caption = imageData[restaurant.photograph].caption;
+          }
+          self.dbPromise.then(function (db) {
+            var tx = db.transaction('restaurants', 'readwrite');
+            var restaurantStore = tx.objectStore('restaurants');
+            return restaurantStore.put(restaurant);
+          });
+          return restaurant;
+        });
         callback(null, restaurants);
       } else { // Oops!. Got an error from server.
-        const error = (`Request failed. Returned status of ${xhr.status}`);
-        callback(error, null);
+        this.dbPromise.then(function (db) {
+          var tx = db.transaction('restaurants');
+          var restaurantsStore = tx.objectStore('restaurants');
+          return restaurantsStore.getAll();
+        }).then(function (restaurants) {
+          callback(null, restaurants);
+        }).catch(function () {
+          const error = (`Request failed.`);
+          callback(error, null);
+        });
       }
     };
     xhr.send();
@@ -35,19 +73,38 @@ class DBHelper {
    * Fetch a restaurant by its ID.
    */
   static fetchRestaurantById(id, callback) {
-    // fetch all restaurants with proper error handling.
-    DBHelper.fetchRestaurants((error, restaurants) => {
-      if (error) {
-        callback(error, null);
-      } else {
-        const restaurant = restaurants.find(r => r.id == id);
-        if (restaurant) { // Got the restaurant
-          callback(null, restaurant);
-        } else { // Restaurant does not exist in the database
-          callback('Restaurant does not exist', null);
+    var self = this;
+
+    let xhr = new XMLHttpRequest();
+    xhr.open('GET', DBHelper.DATABASE_URL + '/' + id);
+    xhr.onload = () => {
+      if (xhr.status === 200) { // Got a success response from server!
+        const restaurant = JSON.parse(xhr.responseText);
+        if (restaurant.photograph) {
+          const imageData = ImageInfo.ImageInfoData;
+          restaurant.alt = imageData[restaurant.photograph].alt;
+          restaurant.caption = imageData[restaurant.photograph].caption;
         }
+        self.dbPromise.then(function (db) {
+          var tx = db.transaction('restaurants', 'readwrite');
+          var restaurantStore = tx.objectStore('restaurants');
+          return restaurantStore.put(restaurant);
+        })
+        callback(null, restaurant);
+      } else { // Oops!. Got an error from server.
+        this.dbPromise.then(function (db) {
+          var tx = db.transaction('restaurants');
+          var restaurantsStore = tx.objectStore('restaurants');
+          return restaurantsStore.get(parseInt(id));
+        }).then(function (restaurant) {
+          callback(null, restaurant);
+        }).catch(function () {
+          const error = (`Request failed.`);
+          callback(error, null);
+        });
       }
-    });
+    };
+    xhr.send();
   }
 
   /**
@@ -157,12 +214,12 @@ class DBHelper {
   /**
    * Paths for various image representations
    */
-  static imageRepresentationsPaths(fullFileName) {
-    const [folderName, [filename, suffix]] = ['./img/', fullFileName.split('.')];
-    const large_1x = folderName.concat(filename, '-1024_1x', '.', suffix);
-    const large_2x = folderName.concat(filename, '-1024_2x', '.', suffix);
-    const small_1x = folderName.concat(filename, '-560_1x', '.', suffix);
-    const small_2x = folderName.concat(filename, '-560_2x', '.', suffix);
+  static imageRepresentationsPaths(filename) {
+    const [folderName, suffix] = ['./img/', 'jpg'] //,'webp'];
+    const large_1x = folderName.concat(filename, '-512_1x', '.', suffix);
+    const large_2x = folderName.concat(filename, '-512_2x', '.', suffix);
+    const small_1x = folderName.concat(filename, '-380_1x', '.', suffix);
+    const small_2x = folderName.concat(filename, '-380_2x', '.', suffix);
 
     return {
       large_1x: large_1x,
@@ -187,3 +244,4 @@ class DBHelper {
   }
 
 }
+module.exports = DBHelper;

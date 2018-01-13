@@ -4,27 +4,39 @@
   "description": "Udacity project 1",
   "main": "index.html",
   "dependencies": {
+    "babel-core": "^6.26.0",
+    "babelify": "^8.0.0",
+    "browserify": "^15.0.0",
+    "del": "^3.0.0",
     "grunt": "^1.0.1",
-    "grunt-mkdir": "^1.0.0",
-    "grunt-responsive-images": "^1.10.1",
-    "grunt-contrib-clean": "^1.1.0",
     "grunt-contrib-connect": "^1.0.2",
-    "grunt-contrib-copy": "^1.0.0",
-    "grunt-contrib-watch": "^1.0.0",
-    "grunt-replace": "^1.0.1"
+    "grunt-responsive-images": "^1.10.1",
+    "gulp-grunt": "^0.5.5",
+    "gulp-replace": "^0.6.1",
+    "gulp-sass": "^3.1.0",
+    "gulp-sourcemaps": "^2.6.3",
+    "gulp-util": "^3.0.8",
+    "idb": "^2.0.4",
+    "vinyl-buffer": "^1.0.1",
+    "vinyl-source-stream": "^2.0.0",
+    "watchify": "^3.9.0"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "grunt serve"
+    "start": "gulp"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/kapekost/mws-restaurant-stage-1.git"
+    "url": "git+https://github.com/kapekost/mws-restaurant.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/kapekost/mws-restaurant-stage-1/issues"
+    "url": "https://github.com/kapekost/mws-restaurant/issues"
   },
-  "homepage": "https://github.com/kapekost/mws-restaurant-stage-1#readme"
+  "homepage": "https://github.com/kapekost/mws-restaurant#readme",
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-webp": "^3.0.0"
+  }
 }

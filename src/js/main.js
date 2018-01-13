@@ -1,8 +1,10 @@
+const DBHelper = require('./dbhelper');
+
 let restaurants,
   neighborhoods,
   cuisines
 var map
-var markers = []
+this.markers = []
 
 
 /**
@@ -22,17 +24,21 @@ document.addEventListener('DOMContentLoaded', (event) => {
       window.addEventListener('load', function () {
         navigator.serviceWorker.register('/sw.js').then(function (registration) {
           // Registration was successful
-          console.log('ServiceWorker registration successful with scope: ', registration.scope);
+          // console.log('ServiceWorker registration successful with scope: ', registration.scope);
           resolve();
         }, function (err) {
           // registration failed :(
-          console.log('ServiceWorker registration failed: ', err);
+          // console.log('ServiceWorker registration failed: ', err);
           reject(err);
         });
       });
     }
   });
 })();
+/**
+ * Initialise indexedDB
+ */
+DBHelper.initIndexedDB();
 
 /**
  * Fetch all neighborhoods and set their HTML.
@@ -42,7 +48,7 @@ fetchNeighborhoods = () => {
     if (error) { //  Got an error
       console.error(error);
     } else {
-      self.neighborhoods = neighborhoods;
+      this.neighborhoods = neighborhoods;
       fillNeighborhoodsHTML();
     }
   });
@@ -51,7 +57,7 @@ fetchNeighborhoods = () => {
 /**
  * Set neighborhoods HTML.
  */
-fillNeighborhoodsHTML = (neighborhoods = self.neighborhoods) => {
+fillNeighborhoodsHTML = (neighborhoods = this.neighborhoods) => {
   const select = document.getElementById('neighborhoods-select');
   neighborhoods.forEach(neighborhood => {
     const option = document.createElement('option');
@@ -69,7 +75,7 @@ fetchCuisines = () => {
     if (error) { // Got an error!
       console.error(error);
     } else {
-      self.cuisines = cuisines;
+      this.cuisines = cuisines;
       fillCuisinesHTML();
     }
   });
@@ -78,7 +84,7 @@ fetchCuisines = () => {
 /**
  * Set cuisines HTML.
  */
-fillCuisinesHTML = (cuisines = self.cuisines) => {
+fillCuisinesHTML = (cuisines = this.cuisines) => {
   const select = document.getElementById('cuisines-select');
 
   cuisines.forEach(cuisine => {
@@ -97,7 +103,7 @@ window.initMap = () => {
     lat: 40.722216,
     lng: -73.987501
   };
-  self.map = new google.maps.Map(document.getElementById('map'), {
+  this.map = new google.maps.Map(document.getElementById('map'), {
     zoom: 12,
     center: loc,
     scrollwheel: false
@@ -133,20 +139,20 @@ updateRestaurants = () => {
  */
 resetRestaurants = (restaurants) => {
   // Remove all restaurants
-  self.restaurants = [];
+  this.restaurants = [];
   const ul = document.getElementById('restaurants-list');
   ul.innerHTML = '';
 
   // Remove all map markers
-  self.markers.forEach(m => m.setMap(null));
-  self.markers = [];
-  self.restaurants = restaurants;
+  this.markers.forEach(m => m.setMap(null));
+  this.markers = [];
+  this.restaurants = restaurants;
 }
 
 /**
  * Create all restaurants HTML and add them to the webpage.
  */
-fillRestaurantsHTML = (restaurants = self.restaurants) => {
+fillRestaurantsHTML = (restaurants = this.restaurants) => {
   const ul = document.getElementById('restaurants-list');
   restaurants.forEach(restaurant => {
     ul.append(createRestaurantHTML(restaurant));
@@ -160,42 +166,46 @@ fillRestaurantsHTML = (restaurants = self.restaurants) => {
 createRestaurantHTML = (restaurant) => {
   const li = document.createElement('li');
 
-  const imageRepresentations = DBHelper.imageUrlForRestaurant(restaurant);
-  const picture = document.createElement('picture');
-  picture.className = 'restaurant-img';
-  picture.setAttribute('aria-labelledby', "fig_" + restaurant.id);
-  picture.setAttribute('role', 'img');
-  const sourceSmall = document.createElement('source');
-  sourceSmall.setAttribute('media', '(max-width:700px)');
-  sourceSmall.setAttribute('srcset',
-    imageRepresentations.small_1x
-    .concat(' 1x,')
-    .concat(imageRepresentations.small_2x)
-    .concat(' 2x')
-  );
-  picture.append(sourceSmall);
+  if (restaurant.photograph) {
+    const imageRepresentations = DBHelper.imageUrlForRestaurant(restaurant);
+    const picture = document.createElement('picture');
+    picture.className = 'restaurant-img';
+    picture.setAttribute('aria-labelledby', "fig_" + restaurant.id);
+    picture.setAttribute('role', 'img');
 
-  const sourceLarge = document.createElement('source');
-  sourceLarge.setAttribute('media', '(min-width:701px)');
-  sourceLarge.setAttribute('srcset',
-    imageRepresentations.large_1x
-    .concat(' 1x,')
-    .concat(imageRepresentations.large_2x)
-    .concat(' 2x')
-  );
-  picture.append(sourceLarge);
-  const image = document.createElement('img');
-  image.src = imageRepresentations.small_2x;
-  image.setAttribute('alt', 'restaurant '.concat(restaurant.name, ', ', restaurant.alt));
-  image.className = 'restaurant-img';
-  picture.append(image);
+    const sourceSmall = document.createElement('source');
+    sourceSmall.setAttribute('media', '(max-width:700px)');
+    sourceSmall.setAttribute('srcset',
+      imageRepresentations.small_1x
+      .concat(' 1x,')
+      .concat(imageRepresentations.small_2x)
+      .concat(' 2x')
+    );
+    picture.append(sourceSmall);
 
-  const figcaption = document.createElement('figcaption');
-  figcaption.setAttribute('id', "fig_" + restaurant.id)
-  figcaption.innerHTML = restaurant.caption;
-  picture.append(figcaption);
+    const sourceLarge = document.createElement('source');
+    sourceLarge.setAttribute('media', '(min-width:701px)');
+    sourceLarge.setAttribute('srcset',
+      imageRepresentations.large_1x
+      .concat(' 1x,')
+      .concat(imageRepresentations.large_2x)
+      .concat(' 2x')
+    );
+    picture.append(sourceLarge);
 
-  li.append(picture);
+    const image = document.createElement('img');
+    image.src = imageRepresentations.small_2x;
+    image.setAttribute('alt', 'restaurant '.concat(restaurant.name, ', ', restaurant.alt));
+    image.className = 'restaurant-img';
+    picture.append(image);
+
+    const figcaption = document.createElement('figcaption');
+    figcaption.setAttribute('id', "fig_" + restaurant.id)
+    figcaption.innerHTML = restaurant.caption;
+    picture.append(figcaption);
+
+    li.append(picture);
+  }
 
   const name = document.createElement('h1');
   name.innerHTML = restaurant.name;
@@ -222,13 +232,13 @@ createRestaurantHTML = (restaurant) => {
 /**
  * Add markers for current restaurants to the map.
  */
-addMarkersToMap = (restaurants = self.restaurants) => {
+addMarkersToMap = (restaurants = this.restaurants) => {
   restaurants.forEach(restaurant => {
     // Add marker to the map
-    const marker = DBHelper.mapMarkerForRestaurant(restaurant, self.map);
+    const marker = DBHelper.mapMarkerForRestaurant(restaurant, this.map);
     google.maps.event.addListener(marker, 'click', () => {
       window.location.href = marker.url
     });
-    self.markers.push(marker);
+    this.markers.push(marker);
   });
 }

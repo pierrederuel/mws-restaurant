@@ -5,9 +5,18 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<!-- Normalize.css for better cross-browser consistency -->
-	<link rel="stylesheet" src="//normalize-css.googlecode.com/svn/trunk/normalize.css" />
+	<link async rel="stylesheet" src="//normalize-css.googlecode.com/svn/trunk/normalize.css" />
 	<!-- Main CSS file -->
 	<link rel="stylesheet" href="css/styles.css" type="text/css">
+	<link rel="manifest" href="manifest.json">
+	<!-- Add to homescreen for Chrome on Android -->
+	<meta name="mobile-web-app-capable" content="yes">
+	<!-- Add to homescreen for Safari on iOS -->
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<meta name="apple-mobile-web-app-title" content="Restaurant Info">
+	<meta name="theme-color" content="blue" />
+	<link href="favicon.ico" rel="shortcut icon">
 	<title>Restaurant Info</title>
 </head>
 
@@ -66,16 +75,9 @@
 		</a> All Rights Reserved.
 	</footer>
 	<!-- End footer -->
-
-	<!-- Beginning scripts -->
-	<!-- Database helpers -->
-	<script src="js/dbhelper.js"></script>
-	<!-- Main javascript file -->
-	<script src="js/restaurant_info.js"></script>
-	<!-- Google Maps -->
+	<script charset="utf-8" src="js/bundle_restaurant.js"></script>
 	<script async defer src="https://maps.googleapis.com/maps/api/js?key=@@maps_api_key&libraries=places&callback=initMap"></script>
 	<!-- End scripts -->
-
 </body>
 
 </html>
