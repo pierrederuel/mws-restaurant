@@ -1,6 +1,5 @@
 module.exports = function (grunt) {
 
-    const db_server_port = 1337;
     const server_port = 8000;
     // Project configuration.
     grunt.initConfig({
