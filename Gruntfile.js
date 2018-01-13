@@ -22,9 +22,9 @@ module.exports = function (grunt) {
                 options: {
                     engine: 'im',
                     sizes: [{
-                        width: 1024,
+                        width: 512,
                         suffix: '_2x',
-                        quality: 70
+                        quality: 60
                     }]
                 },
                 files: [{
@@ -38,7 +38,7 @@ module.exports = function (grunt) {
                 options: {
                     engine: 'im',
                     sizes: [{
-                        width: 1024,
+                        width: 512,
                         suffix: '_1x',
                         quality: 40
                     }]
@@ -54,9 +54,9 @@ module.exports = function (grunt) {
                 options: {
                     engine: 'im',
                     sizes: [{
-                        width: 560,
+                        width: 380,
                         suffix: '_2x',
-                        quality: 70
+                        quality: 60
                     }]
                 },
                 files: [{
@@ -70,7 +70,7 @@ module.exports = function (grunt) {
                 options: {
                     engine: 'im',
                     sizes: [{
-                        width: 560,
+                        width: 380,
                         suffix: '_1x',
                         quality: 40
                     }]
@@ -89,7 +89,7 @@ module.exports = function (grunt) {
                         width: 48,
                         height: 48,
                         suffix: '-icon-1x',
-                        quality: 70
+                        quality: 60
                     }]
                 },
                 files: [{
@@ -106,7 +106,7 @@ module.exports = function (grunt) {
                         width: 96,
                         height: 96,
                         suffix: '-icon-2x',
-                        quality: 70
+                        quality: 60
                     }]
                 },
                 files: [{
@@ -123,7 +123,7 @@ module.exports = function (grunt) {
                         width: 192,
                         height: 192,
                         suffix: '-icon-4x',
-                        quality: 70
+                        quality: 60
                     }]
                 },
                 files: [{
@@ -140,7 +140,7 @@ module.exports = function (grunt) {
                         width: 512,
                         height: 512,
                         suffix: '-icon-8x',
-                        quality: 70
+                        quality: 60
                     }]
                 },
                 files: [{

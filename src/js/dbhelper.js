@@ -216,10 +216,10 @@ class DBHelper {
    */
   static imageRepresentationsPaths(filename) {
     const [folderName, suffix] = ['./img/', 'jpg'] //,'webp'];
-    const large_1x = folderName.concat(filename, '-1024_1x', '.', suffix);
-    const large_2x = folderName.concat(filename, '-1024_2x', '.', suffix);
-    const small_1x = folderName.concat(filename, '-560_1x', '.', suffix);
-    const small_2x = folderName.concat(filename, '-560_2x', '.', suffix);
+    const large_1x = folderName.concat(filename, '-512_1x', '.', suffix);
+    const large_2x = folderName.concat(filename, '-512_2x', '.', suffix);
+    const small_1x = folderName.concat(filename, '-380_1x', '.', suffix);
+    const small_2x = folderName.concat(filename, '-380_2x', '.', suffix);
 
     return {
       large_1x: large_1x,

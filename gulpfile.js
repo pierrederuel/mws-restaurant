@@ -78,7 +78,9 @@ function watch() {
 
 gulp.task('sass', function () {
     return gulp.src('src/scss/*.scss')
-        .pipe(sass()) // Using gulp-sass
+        .pipe(sass(({
+            outputStyle: 'compressed'
+        }))) // Using gulp-sass
         .pipe(gulp.dest('dist/css'))
 });
 
