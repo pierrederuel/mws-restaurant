@@ -50,9 +50,9 @@ class ImageInfo {
       },
       8: {
         "id": 8,
-        "name": "The Dutch",
-        "neighborhood": "Manhattan",
-        "photograph": "8"
+        "photograph": "8",
+        "alt": "outdoor display of the corner shop, big label reads 'the Dutch'",
+        "caption": "Easy to find our beautiful building",
       },
       9: {
         "id": 9,

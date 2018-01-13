@@ -49,10 +49,7 @@ class DBHelper {
             var tx = db.transaction('restaurants', 'readwrite');
             var restaurantStore = tx.objectStore('restaurants');
             return restaurantStore.put(restaurant);
-          }).then(function () {
-            console.log('restaurants done promise');
           });
-
           return restaurant;
         });
         callback(null, restaurants);

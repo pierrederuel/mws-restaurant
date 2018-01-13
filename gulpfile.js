@@ -10,13 +10,13 @@ const babel = require('babelify');
 const del = require('del');
 const webp = require('gulp-webp');
 const replace = require('gulp-replace');
-
+const util = require('gulp-util');
 
 const db_server_port = 1337;
 
 function compile(watch) {
     const bundler_main = watchify(browserify('./src/js/main.js', {
-        debug: true
+        debug: !util.env.production
     }).transform(babel));
 
     function rebundle() {
@@ -29,7 +29,7 @@ function compile(watch) {
             .pipe(replace('@@server_port', db_server_port))
             .pipe(buffer())
             .pipe(sourcemaps.init({
-                loadMaps: true
+                loadMaps: !util.env.production
             }))
             .pipe(sourcemaps.write('./'))
             .pipe(gulp.dest('./dist/js/'));
@@ -42,7 +42,7 @@ function compile(watch) {
     }
     rebundle();
     const bundler_res = watchify(browserify('./src/js/restaurant_info.js', {
-        debug: true
+        debug: !util.env.production
     }).transform(babel));
 
     function rebundle_res() {
@@ -55,7 +55,7 @@ function compile(watch) {
             .pipe(replace('@@server_port', db_server_port))
             .pipe(buffer())
             .pipe(sourcemaps.init({
-                loadMaps: true
+                loadMaps: !util.env.production
             }))
             .pipe(sourcemaps.write('./'))
             .pipe(gulp.dest('./dist/js/'));
@@ -117,6 +117,10 @@ gulp.task('clean', function () {
     });
 });
 
+gulp.task('minify', function () {
+
+})
+
 gulp.task('build', function () {
     return compile();
 });
@@ -131,6 +135,7 @@ gulp.task('images', ['grunt-images'], function () {
 
 // Default task
 gulp.task('default', ['clean'], function () {
-    return gulp.start('watch', 'grunt-connect',
-        'html', 'sw', 'manifest', 'ico', 'sass', 'images')
+    return (!!util.env.production) ?
+        gulp.start('build', 'grunt-connect', 'html', 'sw', 'manifest', 'ico', 'sass', 'images') : //production
+        gulp.start('watch', 'grunt-connect', 'html', 'sw', 'manifest', 'ico', 'sass', 'images')
 });

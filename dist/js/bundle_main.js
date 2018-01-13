@@ -363,10 +363,7 @@ class DBHelper {
             var tx = db.transaction('restaurants', 'readwrite');
             var restaurantStore = tx.objectStore('restaurants');
             return restaurantStore.put(restaurant);
-          }).then(function () {
-            console.log('restaurants done promise');
           });
-
           return restaurant;
         });
         callback(null, restaurants);
@@ -621,9 +618,9 @@ class ImageInfo {
       },
       8: {
         "id": 8,
-        "name": "The Dutch",
-        "neighborhood": "Manhattan",
-        "photograph": "8"
+        "photograph": "8",
+        "alt": "outdoor display of the corner shop, big label reads 'the Dutch'",
+        "caption": "Easy to find our beautiful building"
       },
       9: {
         "id": 9,
@@ -669,11 +666,11 @@ document.addEventListener('DOMContentLoaded', event => {
       window.addEventListener('load', function () {
         navigator.serviceWorker.register('/sw.js').then(function (registration) {
           // Registration was successful
-          console.log('ServiceWorker registration successful with scope: ', registration.scope);
+          // console.log('ServiceWorker registration successful with scope: ', registration.scope);
           resolve();
         }, function (err) {
           // registration failed :(
-          console.log('ServiceWorker registration failed: ', err);
+          // console.log('ServiceWorker registration failed: ', err);
           reject(err);
         });
       });
