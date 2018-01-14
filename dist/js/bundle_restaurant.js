@@ -383,12 +383,12 @@ class DBHelper {
         });
       }
     };
-    xhr.send();
     xhr.onerror = function () {
       DBHelper.fetchRestaurantsFromStorage().then(restaurants => {
         callback(null, restaurants);
       });
     };
+    xhr.send();
   }
 
   /**
@@ -876,6 +876,6 @@ getParameterByName = (name, url) => {
   return decodeURIComponent(results[2].replace(/\+/g, ' '));
 };
 
-},{"./dbhelper":2}]},{},[4]);
+},{"./dbhelper":2}]},{},[4])
 
 //# sourceMappingURL=bundle_restaurant.js.map

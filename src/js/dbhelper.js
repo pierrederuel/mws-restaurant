@@ -67,12 +67,12 @@ class DBHelper {
         });
       }
     };
-    xhr.send();
     xhr.onerror = function () {
       DBHelper.fetchRestaurantsFromStorage().then((restaurants) => {
         callback(null, restaurants);
       });
     }
+    xhr.send();
   }
 
   /**

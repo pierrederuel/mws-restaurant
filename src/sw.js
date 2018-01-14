@@ -1,3 +1,21 @@
+var cacheName = 'restaurants';
+var filesToCache = [
+    '/',
+    '/css/styles.css',
+    '/js/bundle_main.js',
+    '/js/bundle_restaurant.js'
+];
+self.addEventListener('install', function (e) {
+    console.log('[ServiceWorker] Install');
+    e.waitUntil(
+        caches.open(cacheName).then(function (cache) {
+            console.log('[ServiceWorker] Caching app shell');
+            return cache.addAll(filesToCache);
+        })
+    );
+});
+
+
 self.addEventListener('fetch', function (event) {
     const CACHE_NAME = 'restaurants';
     event.respondWith(
