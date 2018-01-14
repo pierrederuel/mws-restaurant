@@ -347,6 +347,10 @@ class DBHelper {
   static fetchRestaurants(callback) {
     var self = this;
 
+    DBHelper.fetchRestaurantsFromStorage().then(restaurants => {
+      callback(null, restaurants);
+    });
+
     let xhr = new XMLHttpRequest();
     xhr.open('GET', DBHelper.DATABASE_URL);
     xhr.onload = () => {
@@ -369,10 +373,8 @@ class DBHelper {
         callback(null, restaurants);
       } else {
         // Oops!. Got an error from server.
-        this.dbPromise.then(function (db) {
-          var tx = db.transaction('restaurants');
-          var restaurantsStore = tx.objectStore('restaurants');
-          return restaurantsStore.getAll();
+        this.dbPromise.then(() => {
+          return DBHelper.fetchRestaurantsFromStorage();
         }).then(function (restaurants) {
           callback(null, restaurants);
         }).catch(function () {
@@ -382,6 +384,33 @@ class DBHelper {
       }
     };
     xhr.send();
+    xhr.onerror = function () {
+      DBHelper.fetchRestaurantsFromStorage().then(restaurants => {
+        callback(null, restaurants);
+      });
+    };
+  }
+
+  /**
+   * Fetch restaurants from indecedDB
+   */
+  static fetchRestaurantsFromStorage() {
+    return this.dbPromise.then(function (db) {
+      var tx = db.transaction('restaurants');
+      var restaurantsStore = tx.objectStore('restaurants');
+      return restaurantsStore.getAll();
+    });
+  }
+
+  /**
+   * Fetch restaurant by Id from indecedDB
+   */
+  static fetchRestaurantFromStorage(id) {
+    return this.dbPromise.then(function (db) {
+      var tx = db.transaction('restaurants');
+      var restaurantsStore = tx.objectStore('restaurants');
+      return restaurantsStore.get(parseInt(id));
+    });
   }
 
   /**
@@ -409,10 +438,8 @@ class DBHelper {
         callback(null, restaurant);
       } else {
         // Oops!. Got an error from server.
-        this.dbPromise.then(function (db) {
-          var tx = db.transaction('restaurants');
-          var restaurantsStore = tx.objectStore('restaurants');
-          return restaurantsStore.get(parseInt(id));
+        this.dbPromise.then(() => {
+          return DBHelper.fetchRestaurantFromStorage(id);
         }).then(function (restaurant) {
           callback(null, restaurant);
         }).catch(function () {
@@ -420,6 +447,11 @@ class DBHelper {
           callback(error, null);
         });
       }
+    };
+    xhr.onerror = function () {
+      DBHelper.fetchRestaurantFromStorage(id).then(function (restaurant) {
+        callback(null, restaurant);
+      });
     };
     xhr.send();
   }
@@ -844,6 +876,6 @@ getParameterByName = (name, url) => {
   return decodeURIComponent(results[2].replace(/\+/g, ' '));
 };
 
-},{"./dbhelper":2}]},{},[4])
+},{"./dbhelper":2}]},{},[4]);
 
 //# sourceMappingURL=bundle_restaurant.js.map
