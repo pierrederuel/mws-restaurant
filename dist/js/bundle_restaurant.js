@@ -876,6 +876,6 @@ getParameterByName = (name, url) => {
   return decodeURIComponent(results[2].replace(/\+/g, ' '));
 };
 
-},{"./dbhelper":2}]},{},[4])
+},{"./dbhelper":2}]},{},[4]);
 
 //# sourceMappingURL=bundle_restaurant.js.map
