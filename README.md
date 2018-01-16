@@ -1,16 +1,14 @@
 # Restaurant Reviews
+
+Student Project - Restaurant Reviews_
+
 ---
-#### Student Project - Restaurant Reviews_
 
-## Project Overview:
+## Overview
 
- Responsive design on different sized displays and accessible for screen reader use. Implemented service worker and indexedDB for offline experience.
+ The webiste retrieves data about restaurants from a server. The restaurants' data contain rating information about restaurants. The data main structure and images of the website is persisted in `cache` using a `service worker` and the restaurant information/list is stored in `indexedDB` to achieve a good Offline first experience. Furthermore, the design is responsive, to adjust properly in most/all screen displays. And finally, optimizations have been done based on results from `lighthouse` to ensure high score of accessibility.
 
-### Specification
-
-You have been provided the code for a restaurant reviews website. The code has a lot of issues. It’s barely usable on a desktop browser, much less a mobile device. It also doesn’t include any standard accessibility features, and it doesn’t work offline at all. Your job is to update the code to resolve these issues while still maintaining the included functionality.
-
-### What do I do from here?
+### How to start
 
 1. set your environment variable for google maps api key:
 
