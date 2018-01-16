@@ -695,16 +695,8 @@ document.addEventListener('DOMContentLoaded', event => {
 (setupServiceWorker = () => {
   return new Promise((resolve, reject) => {
     if ('serviceWorker' in navigator) {
-      window.addEventListener('load', function () {
-        navigator.serviceWorker.register('/sw.js').then(function (registration) {
-          // Registration was successful
-          // console.log('ServiceWorker registration successful with scope: ', registration.scope);
-          resolve();
-        }, function (err) {
-          // registration failed :(
-          // console.log('ServiceWorker registration failed: ', err);
-          reject(err);
-        });
+      window.addEventListener('load', () => {
+        return navigator.serviceWorker.register('/sw.js');
       });
     }
   });
